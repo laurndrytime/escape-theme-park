@@ -17,7 +17,9 @@ export default function RootLayout({
 }): JSX.Element {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body style={{ overflow: "auto" }} className={inter.className}>
+        {children}
+      </body>
     </html>
   );
 }

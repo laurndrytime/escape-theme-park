@@ -16,6 +16,9 @@ module.exports = {
   },
   env: {
     node: true,
+    browser: true,
+    node: true,
+    jasmine: true,
   },
   plugins: ["only-warn"],
   settings: {

@@ -4,5 +4,6 @@ module.exports = {
   ignorePatterns: ["apps/**", "packages/**"],
   extends: ["@escape-theme-park/eslint-config/library.js"],
   parser: "@typescript-eslint/parser",
+
   parserOptions: {},
 };

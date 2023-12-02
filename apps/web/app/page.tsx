@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import styles from "./page.module.css";
 
 export default function Page(): JSX.Element {
   const [scrollY, setScrollY] = useState<number>(0);

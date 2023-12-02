@@ -3,7 +3,14 @@
 import classNames from "classnames";
 import { useInView } from "framer-motion";
 import { useSearchParams } from "next/navigation";
-import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
+import {
+  Dispatch,
+  MutableRefObject,
+  SetStateAction,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 
 type PostType = { id: string; name: string };
 const posts: PostType[] = [
@@ -24,19 +31,19 @@ export default function Page() {
   useEffect(() => {
     if (!postInView) {
       return;
-    } else {
-      const elem = document.getElementById(postInView);
-      if (!elem) {
-        return;
-      }
-
-      window.history.pushState(
-        {},
-        "",
-        `${window.location.pathname}?post=${postInView}`,
-      );
-      elem.scrollIntoView({ behavior: "smooth" });
     }
+
+    const postElem = document.getElementById(postInView);
+    if (!postElem) {
+      return;
+    }
+    window.history.pushState(
+      {},
+      "",
+      `${window.location.pathname}?post=${postInView}`,
+    );
+
+    postElem.scrollIntoView({ behavior: "smooth" });
   }, [postInView]);
 
   useEffect(() => {
@@ -62,7 +69,7 @@ export default function Page() {
       scrollerRef.current?.removeEventListener("scroll", handleScroll);
     };
   }, []);
-  console.log(scrollProgress, scrollHeight);
+
   return (
     <div className="h-screen flex relative bg-slate-300 w-full">
       <Sidebar postInView={postInView} setPostInView={setPostInView} />
@@ -74,6 +81,7 @@ export default function Page() {
         {posts.map((p) => {
           return (
             <Post
+              scrollerRef={scrollerRef}
               postInView={postInView}
               setPostInView={setPostInView}
               key={p.id}
@@ -106,8 +114,8 @@ function Sidebar({
           <button
             className={classNames(
               postInView === p.id
-                ? "bg-slate-700 hover:bg-slate-900"
-                : "bg-slate-500 hover:bg-slate-700",
+                ? "bg-slate-700 hover:bg-slate-900 text-white"
+                : "bg-slate-500 hover:bg-slate-700 text-black hover:text-white",
               "w-full p-3 text-black hover:text-white ",
             )}
             onClick={() => {
@@ -126,31 +134,40 @@ function Post({
   post,
   postInView,
   setPostInView,
+  scrollerRef,
 }: {
   post: PostType;
   postInView: string | undefined;
   setPostInView: Dispatch<SetStateAction<string | undefined>>;
+  scrollerRef: MutableRefObject<HTMLDivElement | null>;
 }) {
   const thisPostRef = useRef<HTMLDivElement | null>(null);
-  const isInView = useInView(thisPostRef);
+  const isInView = useInView(thisPostRef, { amount: "all", margin: "50px" });
 
   useEffect(() => {
-    if (isInView && postInView !== post.id) {
-      const timeoutId = setTimeout(() => {
-        setPostInView(post.id);
-      }, 400);
-
+    if (scrollerRef.current) {
+      const handleScrollEnd = () => {
+        if (isInView && postInView !== post.id) {
+          const timeoutId = setTimeout(() => {
+            setPostInView(post.id);
+          }, 300);
+          return () => {
+            clearTimeout(timeoutId);
+          };
+        }
+      };
+      scrollerRef.current?.addEventListener("scrollend", handleScrollEnd);
       return () => {
-        clearTimeout(timeoutId);
+        scrollerRef.current?.removeEventListener("scrollend", handleScrollEnd);
       };
     }
-  }, [isInView, postInView]);
+  }, [isInView, postInView, scrollerRef.current]);
 
   return (
     <div
       ref={thisPostRef}
       id={post.id}
-      className="h-screen scroll-mt-5 snap-start bg-slate-100 mb-10"
+      className="h-[50vh] scroll-mt-5 snap-start bg-slate-100 mb-10"
     >
       <h1 className="text-black">{post.name}</h1>
     </div>

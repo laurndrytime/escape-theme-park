@@ -7,7 +7,7 @@ import { motion, AnimatePresence } from "framer-motion";
 
 export default function Page(): JSX.Element {
   return (
-    <main className="p-4 w-full flex">
+    <main className="p-4 w-full flex flex-col sm:flex-row">
       <div className="w-[350px] h-[450px] flex-shrink-0 border-t border-r transition-all hover:rounded-full hover:px-12 hover:py-12 rounded-se-full border-white pl-4 pr-20 py-0 hover:bg-white hover:text-black">
         <div className="border-b w-full border-white pb-4">
           <h1 className="font-mono text-2xl ">Escape Theme Park</h1>

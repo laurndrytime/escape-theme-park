@@ -50,10 +50,21 @@ export default function Page(): JSX.Element {
       <div className="w-full">
         <div className="h-[450px] px-4">
           <h3 className="font-mono mb-4 text-xl">Index</h3>
-          <Toggle label={"Scrollers"}>
-            <Link href="/scroll/translate">Scroll Translation</Link>
-            <Link href="/scroll/snap">Scroll Snap</Link>
-          </Toggle>
+          <div className="flex h-full gap-4 w-full">
+            <Toggle label={"Scrollers"}>
+              <Link className="text-white" href="/scroll/translate">
+                Scroll Translation
+              </Link>
+              <Link className="text-white" href="/scroll/snap">
+                Scroll Snap
+              </Link>
+            </Toggle>
+            <Toggle label={"Random"}>
+              <Link className="text-white" href="/random/url-marquee">
+                Url Marquee
+              </Link>
+            </Toggle>
+          </div>
         </div>
         <div className="h-[300px] -ml-[1px] border-b border-l rounded-es-full w-full"></div>
       </div>

@@ -63,6 +63,9 @@ export default function Page(): JSX.Element {
               <Link className="text-white" href="/random/url-marquee">
                 Url Marquee
               </Link>
+              <Link className="text-white" href="/random/guitar-tuna">
+                Guitar Tuna
+              </Link>
             </Toggle>
           </div>
         </div>

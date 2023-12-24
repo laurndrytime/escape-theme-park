@@ -1,8 +1,16 @@
 {
   "$schema": "https://turbo.build/schema.json",
-  "globalDependencies": ["**/.env.*local"],
+  "globalDependencies": ["**/.env.*local", ".env.local", ".env"],
   "pipeline": {
     "build": {
+      "dotEnv": [".env.local", ".env"],
+      "env": [
+        "NEXT_PUBLIC_SANITY_PROJECT_ID",
+        "NEXT_PUBLIC_SANITY_PROJECT_TITLE",
+        "NEXT_PUBLIC_SANITY_DATASET",
+        "NEXT_PUBLIC_SANITY_TOKEN",
+        "NEXT_PUBLIC_SANITY_API_VERSION"
+      ],
       "dependsOn": ["^build"],
       "outputs": [".next/**", "!.next/cache/**"]
     },
@@ -10,8 +18,24 @@
       "dependsOn": ["^lint"]
     },
     "dev": {
+      "env": [
+        "NEXT_PUBLIC_SANITY_PROJECT_ID",
+        "NEXT_PUBLIC_SANITY_PROJECT_TITLE",
+        "NEXT_PUBLIC_SANITY_DATASET",
+        "NEXT_PUBLIC_SANITY_TOKEN",
+        "NEXT_PUBLIC_SANITY_API_VERSION"
+      ],
+      "dotEnv": [".env.local", ".env"],
       "cache": false,
       "persistent": true
     }
-  }
+  },
+  "globalDotEnv": [".env"],
+  "globalEnv": [
+    "NEXT_PUBLIC_SANITY_PROJECT_ID",
+    "NEXT_PUBLIC_SANITY_PROJECT_TITLE",
+    "NEXT_PUBLIC_SANITY_DATASET",
+    "NEXT_PUBLIC_SANITY_TOKEN",
+    "NEXT_PUBLIC_SANITY_API_VERSION"
+  ]
 }

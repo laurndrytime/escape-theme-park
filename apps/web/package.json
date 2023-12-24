@@ -9,7 +9,9 @@
     "lint": "eslint . --max-warnings 0"
   },
   "dependencies": {
+    "@escape-theme-park/cms": "workspace:*",
     "@escape-theme-park/ui": "workspace:*",
+    "@sanity-typed/client": "^2.1.2",
     "autoprefixer": "^10.4.16",
     "classnames": "^2.3.2",
     "framer-motion": "^10.16.12",
@@ -19,6 +21,7 @@
     "prettier-plugin-tailwindcss": "^0.5.7",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "swr": "^2.2.4",
     "tailwindcss": "^3.3.5"
   },
   "devDependencies": {
@@ -27,7 +30,7 @@
     "@next/eslint-plugin-next": "^14.0.2",
     "@types/eslint": "^8.44.7",
     "@types/node": "^17.0.12",
-    "@types/react": "^18.0.22",
+    "@types/react": "^18.0.25",
     "@types/react-dom": "^18.0.7",
     "eslint": "^8.53.0",
     "typescript": "^5.2.2"

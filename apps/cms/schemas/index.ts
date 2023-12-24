@@ -3,4 +3,6 @@ import category from './category'
 import post from './post'
 import profile from './profile'
 
-export const schemaTypes = [post, profile, category, blockContent]
+const schemaTypes = [post, profile, category, blockContent]
+
+export default schemaTypes

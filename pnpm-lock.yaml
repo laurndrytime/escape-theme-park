@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@escape-theme-park/3d':
+        specifier: workspace:^
+        version: link:apps/3d
       '@escape-theme-park/web':
         specifier: workspace:^
         version: link:apps/web
@@ -42,9 +45,6 @@ importers:
       next:
         specifier: 14.0.4
         version: 14.0.4(react-dom@18.2.0)(react@18.2.0)
-      ogl:
-        specifier: ^1.0.3
-        version: 1.0.3
       react:
         specifier: ^18
         version: 18.2.0
@@ -5871,6 +5871,7 @@ packages:
       loose-envify: 1.4.0
       object-assign: 4.1.1
     dev: false
+    bundledDependencies: false
 
   /create-require@1.1.1:
     resolution: {integrity: sha512-dcKFX3jn0MpIaXjisoRvexIJVEKzaq7z2rZKxf+MSr9TkdmHmsU4m2lcLojrj/FHl8mk5VxMmYA+ftRkP/3oKQ==}
@@ -9022,10 +9023,6 @@ packages:
       rxjs: ^6.5 || ^7
     dependencies:
       rxjs: 7.8.1
-    dev: false
-
-  /ogl@1.0.3:
-    resolution: {integrity: sha512-MOpTaRVZB5ekoBbLp3ANLQVxm9/QgREkwT0/O+tkc73ElIOAxedUFv+F6vSfVtG1m5TuYKaTUsFexXvCkHuhSw==}
     dev: false
 
   /once@1.4.0:

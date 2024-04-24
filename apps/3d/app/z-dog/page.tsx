@@ -147,12 +147,10 @@ export default function Page() {
     function animate() {
       illo.updateRenderGraph();
       requestAnimationFrame(animate);
-      // ref.current.rotate.y += 0.01;
+      ref.current.rotate.y += 0.01;
     }
     animate();
   }, []);
-
-  const animate = useCallback(() => {}, [isDragging]);
 
   return (
     <main className="w-full flex-col h-full items-center relative justify-center flex min-h-screen bg-red-500">
@@ -164,7 +162,7 @@ export default function Page() {
         sizes="100%"
       />
       <div className="z-10 relative flex flex-col items-center justify-center w-full h-full bg-black/60 min-h-screen">
-        <canvas height="150px" width="150px" className="zdog-canvas"></canvas>
+        <canvas height="200px" width="200px" className="zdog-canvas"></canvas>
         <p>Elefante</p>
       </div>
     </main>

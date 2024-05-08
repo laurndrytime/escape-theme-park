@@ -1,35 +1,39 @@
 "use client";
 import Image from "next/image";
-import { useCallback, useEffect, useRef, useState } from "react";
-import Zdog from "zdog";
+import { useEffect, useRef } from "react";
+import Zdog, { TAU } from "zdog";
+
+const color = {
+  body: "#a689c6",
+  head: "#a689c6",
+  ear: "#875873",
+  arm: "#875873",
+  leg: "#875873",
+  cheek: "#ee2258",
+  nose: "#ee2258",
+  eye: "#170f2e",
+  sparkle: "#EA0",
+};
 
 export default function Page() {
   const ref = useRef<any>();
-  const [isDragging, setIsDragging] = useState<boolean>(false);
+  const leftLegRef = useRef<any>();
+  const rightLegRef = useRef<any>();
+
   useEffect(() => {
-    // illustration for canvas
     let illo = new Zdog.Illustration({
-      // set canvas with selector
       element: ".zdog-canvas",
       zoom: 20,
       dragRotate: true,
-      // onDragMove: (pointer, moveX, moveY) => {
-      //   illo.rotate.y = moveY
-      //   illo.rotate.x = moveX
-      // },
-      // onDragStart: () => {},
-      // onDragEnd: () => {
-      //   ref.current.rotate.y += 0.01;
-      // },
     });
 
     // whole elephant
-    var elephante = new Zdog.Group({
+    var elephante = new Zdog.Anchor({
       addTo: illo,
     });
 
     //BODY GROUP
-    const body = new Zdog.Group({
+    const body = new Zdog.Anchor({
       addTo: elephante,
     });
 
@@ -39,7 +43,7 @@ export default function Page() {
       fill: true,
       stroke: 5,
       translate: { y: 2.2, z: -1.3 },
-      color: "#a689c6",
+      color: color.body,
     });
 
     //arm
@@ -48,7 +52,7 @@ export default function Page() {
       fill: true,
       stroke: 0.5,
       translate: { x: -0.9, y: 2.2 },
-      color: "#645c71",
+      color: color.arm,
       rotate: { x: -0.7, y: -0.3 },
     });
 
@@ -58,95 +62,145 @@ export default function Page() {
     });
 
     //leg
-    const leg = new Zdog.Cylinder({
+    const leftLeg = new Zdog.Cylinder({
       addTo: body,
       fill: true,
       stroke: 0.5,
       translate: { x: -1.5, y: 4, z: -0.5 },
-      color: "#645c71",
-      rotate: { y: 0.9 },
+      color: color.leg,
+      rotate: { y: TAU / 1.6 },
     });
 
-    leg.copy({
+    const rightLeg = leftLeg.copy({
       translate: { x: 1.5, y: 4, z: -0.5 },
-      rotate: { y: Math.PI - 0.9 },
+      rotate: { y: -TAU / 1.6 },
     });
 
     // HEAD GROUP
-    const head = new Zdog.Group({
+    const head = new Zdog.Anchor({
       addTo: elephante,
     });
 
     // ear
-    const ear = new Zdog.Hemisphere({
+    const ear = new Zdog.Ellipse({
       addTo: head,
-      backface: "#E62",
-      quarters: 1,
-      stroke: 1.7,
-      diameter: 2,
+      quarters: 3,
       fill: true,
-      color: "#645c71",
-      translate: { z: -1, y: -1.1, x: -2 },
-      rotate: { y: -0.5 * Math.PI, z: -2 * Math.PI },
+      stroke: 0.4,
+      diameter: 3,
+      color: color.ear,
+      translate: { z: -0.4, y: -1.5, x: -1.5 },
+      rotate: { y: TAU / 8, z: TAU / 2 },
     });
 
     ear.copy({
-      backface: "#ffef0a",
-      translate: { z: -1, y: -1.3, x: 1 },
-      rotate: { y: -0.5 * Math.PI, z: 1 * Math.PI },
+      translate: { z: -0.4, y: -1.5, x: 1.5 },
+      rotate: { y: -TAU / 8 },
+      scale: { y: -1 },
     });
+
     // head
     new Zdog.Shape({
       addTo: head,
       fill: true,
       stroke: 3,
-      translate: { z: -0.5 },
-      color: "#e2e2e2",
+      translate: { z: 0.5 },
+      color: color.head,
     });
 
-    const eye = new Zdog.Shape({
+    const cheek = new Zdog.Shape({
       addTo: head,
       fill: true,
-      stroke: 1,
-      translate: { x: -0.7, y: -1, z: -0.4 },
-      color: "#170f2e",
+      stroke: 1.7,
+      translate: { z: 0.6, x: 1, y: 0.6 },
+      color: color.head,
     });
 
-    const eyecopy = eye.copy({
-      translate: { x: 0.7, y: -1, z: -0.4 },
-    });
-
-    const eyesparkle = new Zdog.Shape({
-      addTo: eye,
+    const cheekRed = new Zdog.Ellipse({
+      addTo: cheek,
       fill: true,
-      stroke: 0.3,
-      translate: { x: -0.3, y: -0.2 },
-      color: "#fff",
+      stroke: 0.1,
+      diameter: 0.8,
+      translate: {
+        z: 0.5,
+        x: 0.5,
+      },
+      rotate: {
+        y: -TAU / 8,
+      },
+      color: color.cheek,
     });
 
-    eyesparkle.copy({
-      addTo: eyecopy,
-      translate: { x: -0.3, y: -0.2 },
+    const leftCheek = cheek.copy({
+      translate: { z: 0.6, x: -1, y: 0.6 },
+    });
+
+    cheekRed.copy({
+      addTo: leftCheek,
+      translate: {
+        z: 0.5,
+        x: -0.5,
+      },
+      rotate: {
+        y: TAU / 8,
+      },
+    });
+
+    const eyeGroup = new Zdog.Group({
+      addTo: head,
+    });
+
+    // eye
+    const eye = new Zdog.Ellipse({
+      addTo: eyeGroup,
+      fill: true,
+      diameter: 1,
+      stroke: 0.1,
+      color: color.eye,
+      translate: { x: -0.7, y: -0.4, z: 1 },
+      rotate: { y: TAU / 8 },
+    });
+
+    const eyeSparkle = new Zdog.Polygon({
+      addTo: eye,
+      radius: 0.2,
+      sides: 4,
+      stroke: 0.1,
+      color: color.sparkle,
+      translate: { x: -0.2, y: -0.2, z: 0.15 },
+      fill: true,
+    });
+
+    const rightEye = eye.copy({
+      rotate: { y: -TAU / 8 },
+      translate: { x: 0.7, y: -0.4, z: 1 },
+    });
+    eyeSparkle.copy({
+      addTo: rightEye,
     });
 
     // nose
     new Zdog.Ellipse({
       addTo: head,
-      backface: "#ee2258",
       quarters: 1,
       stroke: 1.3,
       diameter: 2,
-      color: "#b2b2b2",
-      translate: { z: 1.2, y: -0.5 },
+      color: color.nose,
+      translate: { z: 2.5, y: -0.3 },
       rotate: { y: 0.5 * Math.PI, z: -1.1 * Math.PI },
     });
 
     ref.current = illo;
-
+    leftLegRef.current = leftLeg;
+    rightLegRef.current = rightLeg;
     // update & render
     function animate() {
       illo.updateRenderGraph();
       requestAnimationFrame(animate);
+
+      leftLegRef.current.rotate.x += 0.1;
+      rightLegRef.current.rotate.x += 0.1;
+
       ref.current.rotate.y += 0.01;
     }
     animate();

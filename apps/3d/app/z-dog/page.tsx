@@ -199,7 +199,7 @@ export default function Page() {
       requestAnimationFrame(animate);
 
       leftLegRef.current.rotate.x += 0.1;
-      rightLegRef.current.rotate.x += 0.1;
+      rightLegRef.current.rotate.x -= 0.1;
 
       ref.current.rotate.y += 0.01;
     }

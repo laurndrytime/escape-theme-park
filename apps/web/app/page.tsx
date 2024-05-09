@@ -64,6 +64,14 @@ export default function Page(): JSX.Element {
                 Url Marquee
               </Link>
             </Toggle>
+            <Toggle label={"3D"}>
+              <Link
+                className="text-white"
+                href="https://3d.escapethemepark.lol/z-dog"
+              >
+                Z-Dog
+              </Link>
+            </Toggle>
           </div>
         </div>
         <div className="h-[300px] -ml-[1px] border-b border-l rounded-es-full w-full"></div>

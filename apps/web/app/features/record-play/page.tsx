@@ -21,7 +21,7 @@ export default function Page() {
   }, [audio]);
 
   return (
-    <div>
+    <div id="appBody">
       {pageState === 0 ? (
         <div>
           <p>
@@ -58,7 +58,7 @@ function AudioPlayer({
   const { forward, rewind, play, pause, isPlaying, currentTime, duration } =
     usePlayer(audio, "my-special-player", { initialLoaded: true });
   return (
-    <div id="appbody">
+    <div>
       <div id="controls" className="flex gap-4">
         <button onClick={forward}>Forward</button>
         <button onClick={isPlaying ? pause : play}>
@@ -96,7 +96,7 @@ export type Recorder = {
   duration: number;
 };
 
-export function useRecorder(): Recorder {
+function useRecorder(): Recorder {
   const [state, setState] = useState<MediaRecorder["state"]>("inactive");
   const [audio, setAudio] = useState<AudioFile>(null);
   const [microphoneEnabled, setMicrophoneEnabled] = useState<MicEnabled>(null);
@@ -287,7 +287,7 @@ export type Player = {
  * @param id - Provide a unique id for the player
  * @param options - Configure the hook
  */
-export function usePlayer(
+function usePlayer(
   file: Blob | string | null,
   id?: string,
   options: { initialLoaded?: boolean } = { initialLoaded: true },

@@ -59,6 +59,11 @@ export default function Page(): JSX.Element {
                 Scroll Snap
               </Link>
             </Toggle>
+            <Toggle label={"Features"}>
+              <Link className="text-white" href="/features/record-play">
+                Recorder and Player
+              </Link>
+            </Toggle>
             <Toggle label={"Random"}>
               <Link className="text-white" href="/random/url-marquee">
                 Url Marquee

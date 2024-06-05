@@ -1,6 +1,5 @@
 "use client";
 
-import "./styles.css";
 import { useEffect, useState, Dispatch, SetStateAction } from "react";
 import {
   useRecorder,
